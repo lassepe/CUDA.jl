@@ -9,8 +9,6 @@ using ..CUDA: @enum_without_prefix, CUstream, CUdevice, CuDim3
 
 using Base: @deprecate_binding
 
-using IntervalTrees
-
 
 #
 # untyped buffers
