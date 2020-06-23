@@ -184,9 +184,11 @@ end
             C  = collect(dC)
             @test C == permutedims(A, p) # exact equality
             Csimple = similar(A, eltyC, dimsC...)
-            CUDA.Mem.pin(Csimple)
-            Csimple = CUTENSOR.permutation!(one(eltyA), A, indsA, Csimple, indsC)
-            @test Csimple == permutedims(A, p) # exact equality
+            if eltyA != Float16
+                CUDA.Mem.pin(Csimple)
+                Csimple = CUTENSOR.permutation!(one(eltyA), A, indsA, Csimple, indsC)
+                @test Csimple == permutedims(A, p) # exact equality
+            end
 
             # with scalar
             α  = rand(eltyA)
